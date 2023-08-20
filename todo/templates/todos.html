@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Todos
+{% endblock %}
+
+{% block content %}
+<h1>Todos</h1>
+  
+<ul>
+  {% for x in todos %}
+    <li>{{ x.description }} {{ x.complete }} {{x.created_at }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}
