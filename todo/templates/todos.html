@@ -5,7 +5,7 @@
         {% for todo in todos %}
         <li class="list-group-item">
             <div class="container">
-                <form class="row d-flex justify-content-between align-items-start" id="todo_main">
+                <form class="row d-flex justify-content-between align-items-start">
                     <div class="col-1">
                         <input class="form-check-input"
                             type="checkbox" "{% if todo.complete %} checked {% endif %}"
@@ -13,7 +13,7 @@
                     </div>
                     <div class="col-10 text-truncate {% if todo.complete %} text-decoration-line-through {% endif %}"
                          hx-get="/edit_todo/{{ todo.id }}/"
-                         hx-target="#todo_main">
+                         hx-target="closest form" style="cursor: pointer;">
                         {{ todo.description }}
                     </div>
                     <div class="col-1">

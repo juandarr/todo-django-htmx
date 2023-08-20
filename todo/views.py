@@ -38,3 +38,17 @@ def delete_todo(request, pk):
     context = { 'todos': todos}
     template = loader.get_template('todos.html')
     return HttpResponse(template.render(context, request)) 
+
+# Edit todo description
+def edit_todo(request, pk):
+    todo = Todo.objects.get(pk=pk)
+    if request.method == 'POST':
+        todo.description = request.POST.get('description')
+        todo.save()
+        todos = Todo.objects.all().order_by('-id')
+        context = { 'todos': todos}
+        template = loader.get_template('todos.html')
+        return HttpResponse(template.render(context, request)) 
+    context = {'todo': todo}
+    template = loader.get_template('edit.html')
+    return HttpResponse(template.render(context, request)) 

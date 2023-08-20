@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-<h3 class="my-5">Welcome to Your Todo List</h3>
+<h3 class="my-5">Your very own Todo List</h3>
 <form id="myform" hx-post="{% url 'create_todo' %}" hx-target="#todoList" class="mx-auto">
     {% csrf_token %}
     <div class="mb-3 row align-items-center">
