@@ -1,15 +1,28 @@
-<form class="row d-flex justify-content-between align-items-start">
-    <div class="col-1">
-        <input class="form-check-input" type="checkbox" "{% if todo.complete %} checked {% endif %}"
-            hx-get="{% url 'mark_todo' todo.pk %}" hx-target="#todoList" style="cursor: pointer;">
+<form class="flex">
+    <div class="w-1/5 py-2 text-center">
+        <input class="checkbox checkbox-primary" type="checkbox" {% if todo.complete %} checked {% endif %}
+            hx-get="{% url 'mark_todo' todo.pk %}" hx-target="#todoList" style="cursor: pointer;"
+            id="checkbox-{{ todo.pk }}">
     </div>
-    <input type="text" class="col-8 text-truncate {% if todo.completed %} text-decoration-line-through {% endif %}"
-    name="description" value="{{ todo.description }}">
-    <div class="col-2">
-    <button hx-post="{% url 'edit_todo' todo.pk %}" hx-target="#todoList">Save</button>
+    <input type="text" class="font-small w-3/5 text-truncate bg-white text-gray-700 border-0" name="title" value="{{ todo.title }}"
+        autofocus>
+    <div class="w-1/5 py-2 text-center">
+        <div class="tooltip tooltip-info" data-tip="Save">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-6 h-6 text-sky-500 hover:text-sky-600"
+                hx-post="{% url 'edit_todo' todo.pk %}" hx-target="#todoList" style="cursor: pointer;display: inline;">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+            </svg>
+        </div>
+        <div class="tooltip tooltip-info" data-tip="Delete">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="h-6 w-6 text-sky-500 hover:text-sky-600"
+                style="cursor: pointer;display: inline;" hx-delete="{% url 'delete_todo' todo.pk %}"
+                hx-target="#todoList">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        </div>
     </div>
-    <div class="col-1">
-        <span class="action badge rounded-pill text-bg-danger" hx-delete="{% url 'delete_todo' todo.pk %}"
-            hx-target="#todoList" style="cursor: pointer;">X</span>
-    </div>
-</form>
+</form><!--hx-confirm="Are you sure you wish to delete?"-->

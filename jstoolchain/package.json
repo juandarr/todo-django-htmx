@@ -1,0 +1,19 @@
+{
+  "name": "jstoolchain",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tailwind-watch": "tailwindcss -i ../input.css -o ../todo/static/css/output.css --watch",
+    "tailwind-build": "tailwindcss -i ../input.css -o ../todo/static/css/output.css --minify"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.3.3"
+  },
+  "dependencies": {
+    "daisyui": "^3.5.1"
+  }
+}

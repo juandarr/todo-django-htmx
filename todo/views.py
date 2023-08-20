@@ -12,8 +12,8 @@ def index(request):
 
 # Creating a new Todo
 def create_todo(request):
-    description = request.POST.get('description')
-    todo = Todo.objects.create(description=description)
+    title = request.POST.get('title')
+    todo = Todo.objects.create(title=title)
     todo.save()
     todos = Todo.objects.all().order_by('-id')
     context = { 'todos': todos}
@@ -43,7 +43,7 @@ def delete_todo(request, pk):
 def edit_todo(request, pk):
     todo = Todo.objects.get(pk=pk)
     if request.method == 'POST':
-        todo.description = request.POST.get('description')
+        todo.title = request.POST.get('title')
         todo.save()
         todos = Todo.objects.all().order_by('-id')
         context = { 'todos': todos}

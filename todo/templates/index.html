@@ -1,24 +1,28 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Main page
+Main page
 {% endblock %}
 
 {% block content %}
-<h3 class="my-5">Your very own Todo List</h3>
-<form id="myform" hx-post="{% url 'create_todo' %}" hx-target="#todoList" class="mx-auto">
+<form id="myform" hx-post="{% url 'create_todo' %}" hx-target="#todoList" class="flex mb-6 space-x-4">
     {% csrf_token %}
-    <div class="mb-3 row align-items-center">
-        <label for="todoText" class="col-auto col-form-label">Enter your todo here: </label>
-        <div class="col-6">
-            <input type="text" name="description" class="form-control" id="todoText" required>
-        </div>
-        <div class="col-auto">
-            <button type="submit" class="btn btn-success">Add</button>
-        </div>
-    </div>
+    <input type="text" name="title" class="input input-bordered input-secondary flex-1 px-4 py-3 bg-gray-200 rounded-xl text-gray-700" id="todoText"
+        placeholder="Enter your todo here" required>
+    <button type="submit" class="p-3 rounded-xl text-white bg-cyan-500 hover:bg-cyan-600">Add</button>
 </form>
-<div id="todoList">
+<div class="flex py-3 rounded-xl bg-gray-100">
+    <div class="w-1/5 text-center">
+        <p class="px-6 text-xs font-medium text-gray-500 uppercase">Done</p>
+    </div>
+    <div class="w-3/5">
+        <p class="px-6 text-xs font-medium text-gray-500 uppercase">Task</p>
+    </div>
+    <div class="hidden md:block w-1/5 px-6 text-center">
+        <p class="text-xs font-medium text-gray-500 uppercase">Actions</p>
+    </div>
+</div>
+<div class="divide-y divide-gray-200" id="todoList">
     {% include 'todos.html' %}
 </div>
 {% endblock %}

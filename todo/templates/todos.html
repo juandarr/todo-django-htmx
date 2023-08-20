@@ -1,43 +1,43 @@
 {% if todos %}
 
-<div class="card" style="width: 35rem;">
-    <ul class="list-group list-group-flush">
-        {% for todo in todos %}
-        <li class="list-group-item">
-            <div class="container">
-                <form class="row d-flex justify-content-between align-items-start">
-                    <div class="col-1">
-                        <input class="form-check-input"
-                            type="checkbox" "{% if todo.complete %} checked {% endif %}"
-                            hx-get="{% url 'mark_todo' todo.pk %}" hx-target="#todoList" style="cursor: pointer;">
-                    </div>
-                    <div class="col-10 text-truncate {% if todo.complete %} text-decoration-line-through {% endif %}"
-                         hx-get="/edit_todo/{{ todo.id }}/"
-                         hx-target="closest form" style="cursor: pointer;">
-                        {{ todo.description }}
-                    </div>
-                    <div class="col-1">
-                        <span class="action badge rounded-pill text-bg-danger"
-                            hx-delete="{% url 'delete_todo' todo.pk %}" hx-target="#todoList"
-                            style="cursor: pointer;">X</span>
-                    </div>
-                </form><!--hx-confirm="Are you sure you wish to delete?"-->
-                <div class="row d-flex">
-                    <div class="col-4">
-                        <div
-                            class="fst-italic badge bg-primary text-wrap {% if todo.complete %} text-decoration-line-through {% endif %}">
-                            {{ todo.created_at }}
-                        </div>
-                    </div>
+<ul class="divide-y divide-gray-150">
+    {% for todo in todos %}
+    <li class="">
+        <form class="flex">
+            <div class="w-1/5 py-2 text-center">
+                <input class="checkbox checkbox-primary" type="checkbox" {% if todo.complete %} checked {% endif %}
+                    hx-get="{% url 'mark_todo' todo.pk %}" hx-target="#todoList" style="cursor: pointer;"
+                    id="checkbox-{{ todo.pk }}">
+            </div>
+            <div class="w-3/5 py-2 text-truncate text-gray-700 font-small {% if todo.complete %} line-through {% endif %}"
+                hx-get="{% url 'edit_todo' todo.pk %}" hx-target="closest form" hx-swap="outerHTML" style="cursor: pointer;">
+                {{ todo.title }}
+            </div>
+            <div class="w-1/5 py-2 text-center" >
+                <div class="tooltip tooltip-info" data-tip="Delete" ">
+
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" 
+                class="h-6 w-6 text-sky-500 hover:text-sky-600" style="cursor: pointer;display: inline;"
+                hx-delete="{% url 'delete_todo' todo.pk %}" hx-target="#todoList">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+</div>
+            </div>
+        </form><!--hx-confirm="Are you sure you wish to delete?"-->
+        <div class="flex pb-2">
+            <div class="w-3/5 text-center">
+                <div
+                    class="badge bg-primary text-wrap {% if todo.complete %} text-decoration-line-through {% endif %}">
+                    {{ todo.created_at }}
                 </div>
             </div>
-        </li>
-        {% endfor %}
-    </ul>
-</div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
 
 {% else %}
 
-<h5>No todos yet!</h5>
+<div class="flex-1 px-6 py-6 text-l text-violet-600">No todos yet!</div>
 
 {% endif %}
