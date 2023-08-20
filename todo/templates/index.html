@@ -5,7 +5,32 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Hello world!</h1>
-    <p>This is the starting point for a todo list in Django</p>
-    <p>Click <a href="http://localhost:8000/todos">here</a> to start creating your tasks</p>
+<h3 class="my-5">Welcome to Your Todo List</h3>
+<form id="myform" hx-post="{% url 'create_todo' %}" hx-target="#todoList" class="mx-auto">
+    {% csrf_token %}
+    <div class="mb-3 row align-items-center">
+        <label for="todoText" class="col-auto col-form-label">Enter your todo here: </label>
+        <div class="col-6">
+            <input type="text" name="description" class="form-control" id="todoText" required>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-success">Add</button>
+        </div>
+    </div>
+</form>
+<div id="todoList">
+    {% include 'todos.html' %}
+</div>
+{% endblock %}
+
+{% block js_script %}
+<script>
+    document.body.addEventListener('htmx:configRequest', (event) => {
+        event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+    });
+
+    document.body.addEventListener('htmx:afterRequest', (event) => {
+        document.getElementById("myform").reset();
+    });
+</script>
 {% endblock %}

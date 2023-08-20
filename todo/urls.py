@@ -3,6 +3,13 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('todos/', views.todos, name='todos')
+    path('', views.index, name='index')
 ]
+
+htmxpatterns = [
+    path('create_todo/', views.create_todo, name='create_todo'),
+    path('mark_todo/<int:pk>/', views.mark_todo, name='mark_todo'),
+    path('delete_todo/<int:pk>/', views.delete_todo, name='delete_todo')
+]
+
+urlpatterns += htmxpatterns
