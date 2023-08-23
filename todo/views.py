@@ -5,7 +5,7 @@ from .models import Todo
 
 # Rendering home page
 def index(request):
-    todos = Todo.objects.all().order_by('id')
+    todos = Todo.objects.all().order_by('complete','id')
     context = {'todos': todos,}
     template = loader.get_template('index.html')
     return HttpResponse(template.render(context, request))
@@ -15,7 +15,7 @@ def create_todo(request):
     title = request.POST.get('title')
     todo = Todo.objects.create(title=title)
     todo.save()
-    todos = Todo.objects.all().order_by('id')
+    todos = Todo.objects.all().order_by('complete','id')
     context = { 'todos': todos}
     template = loader.get_template('todos.html')
     return HttpResponse(template.render(context, request)) 
@@ -25,7 +25,7 @@ def mark_todo(request, pk):
     todo = Todo.objects.get(pk=pk)
     todo.complete = not(todo.complete)
     todo.save()
-    todos = Todo.objects.all().order_by('id')
+    todos = Todo.objects.all().order_by('complete','id')
     context = { 'todos': todos}
     template = loader.get_template('todos.html')
     return HttpResponse(template.render(context, request)) 
@@ -34,7 +34,7 @@ def mark_todo(request, pk):
 def delete_todo(request, pk):
     todo = Todo.objects.get(pk=pk)
     todo.delete()
-    todos = Todo.objects.all().order_by('id')
+    todos = Todo.objects.all().order_by('complete','id')
     context = { 'todos': todos}
     template = loader.get_template('todos.html')
     return HttpResponse(template.render(context, request)) 
