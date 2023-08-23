@@ -1,4 +1,3 @@
-db.sqlite3 
 todo_htmx/__pycache__/
 todo/__pycache__/
 todo/migrations/__pycache__/

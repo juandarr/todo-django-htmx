@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-0#+*0iv3k_&@o_!4=3dt#+ur*cam7*03w7c*%mu!q9abdm63g('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG =  True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -49,7 +49,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_browser_reload.middleware.BrowserReloadMiddleware'
+    'django_browser_reload.middleware.BrowserReloadMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'todo_htmx.urls'
@@ -128,6 +129,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
+STATIC_ROOT = BASE_DIR / 'productionfiles'
 
 STATIC_URL = 'static/'
 
